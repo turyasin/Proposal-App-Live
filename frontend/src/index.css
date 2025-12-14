@@ -1,0 +1,229 @@
+:root {
+  /* Updated Color Palette - Dark Grey + #0E639C Blue + Orange */
+  --color-bg-primary: 220 13% 12%;
+  /* Dark grey background */
+  --color-bg-secondary: 220 13% 16%;
+  --color-bg-card: 220 13% 20%;
+
+  --color-text-primary: 220 10% 95%;
+  --color-text-secondary: 220 10% 70%;
+  --color-text-muted: 220 10% 50%;
+
+  /* Primary color: #0E639C converted to HSL */
+  --color-accent: 203 85% 34%;
+  /* #0E639C */
+  --color-accent-hover: 203 85% 44%;
+  --color-accent-glow: 203 85% 34% / 0.5;
+
+  --color-primary: 203 85% 34%;
+  /* #0E639C for primary actions */
+  --color-primary-hover: 203 85% 44%;
+
+  --color-success: 150 60% 45%;
+  --color-warning: 25 95% 53%;
+  /* Orange for PDF/important buttons */
+  --color-warning-hover: 25 95% 60%;
+  --color-danger: 0 70% 60%;
+
+  /* Spacing & Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+
+  /* Glassmorphism */
+  --glass-bg: 220 13% 20% / 0.7;
+  --glass-border: 220 13% 90% / 0.1;
+  --glass-blur: 12px;
+
+  /* Fonts */
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: hsl(var(--color-bg-primary));
+  color: hsl(var(--color-text-primary));
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Utility Classes for Glassmorphism */
+.glass-panel {
+  background: hsl(var(--glass-bg));
+  backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid hsl(var(--glass-border));
+  border-radius: var(--radius-lg);
+}
+
+.btn-primary {
+  background-color: hsl(var(--color-primary));
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px -2px hsl(var(--color-accent-glow));
+}
+
+.btn-primary:hover {
+  background-color: hsl(var(--color-primary-hover));
+  transform: translateY(-1px);
+}
+
+.btn-warning {
+  background-color: hsl(var(--color-warning));
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px -2px hsl(var(--color-warning) / 0.5);
+}
+
+.btn-warning:hover {
+  background-color: hsl(var(--color-warning-hover));
+  transform: translateY(-1px);
+}
+
+/* Sidebar Styles */
+.sidebar {
+  width: 280px;
+  margin: 1rem;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  transition: transform 0.3s ease;
+}
+
+.mobile-menu-toggle {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 1001;
+  background: hsl(var(--color-accent));
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem;
+  cursor: pointer;
+  display: none;
+  /* Hidden on desktop */
+  color: white;
+}
+
+/* Responsive Design - Mobile & Tablet */
+@media (max-width: 1024px) {
+
+  /* Show mobile menu toggle button on tablet and mobile */
+  .mobile-menu-toggle {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+
+  /* Hide sidebar by default on tablet/mobile */
+  .sidebar {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 80% !important;
+    max-width: 320px;
+    margin: 0 !important;
+    z-index: 1000;
+    transform: translateX(-100%);
+    /* Hidden */
+    background: hsl(var(--color-bg-secondary));
+    /* Ensure opaque background */
+    border-right: 1px solid hsl(var(--glass-border));
+    visibility: visible !important;
+    /* Ensure it's not hidden by display:none */
+  }
+
+  /* Show sidebar when menu is open */
+  .sidebar.mobile-menu-open {
+    transform: translateX(0);
+    /* Visible */
+  }
+
+  .app-container {
+    flex-direction: column;
+  }
+
+  .app-container>main {
+    padding: 1rem !important;
+    margin-top: 0 !important;
+  }
+}
+
+@media (max-width: 768px) {
+
+  /* Stack columns vertically on mobile */
+  .costing-view-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+
+  /* Smaller sidebar on mobile */
+  .app-container>aside {
+    width: 75% !important;
+    max-width: 280px !important;
+  }
+
+  /* Modal adjustments */
+  .glass-panel {
+    border-radius: var(--radius-md) !important;
+  }
+
+  /* Button text sizing */
+  .btn-primary,
+  .btn-warning {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  /* Reduce heading sizes */
+  h1 {
+    font-size: 1.5rem !important;
+  }
+
+  h2 {
+    font-size: 1.25rem !important;
+  }
+
+  h3 {
+    font-size: 1.1rem !important;
+  }
+}
